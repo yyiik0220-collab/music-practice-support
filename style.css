@@ -1,0 +1,791 @@
+/* 基本リセット */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  background-color: #f7f8fa;
+  color: #222;
+  line-height: 1.6;
+}
+
+/* ヘッダー */
+.app-header {
+  background-color: #2c3e50;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* タブナビゲーション */
+.tab-nav {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #ecf0f1;
+  padding: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.tab-button {
+  flex: 1 1 auto;
+  min-width: 100px;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #bdc3c7;
+  color: #2c3e50;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.tab-button:hover,
+.tab-button:focus {
+  background-color: #95a5a6;
+  outline: 2px solid #2c3e50;
+  outline-offset: 2px;
+}
+
+.tab-button.active {
+  background-color: #2c3e50;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* タブコンテンツ */
+.tab-content {
+  max-width: 720px;
+  margin: 1rem auto;
+  padding: 0 1rem;
+}
+
+.tab-panel {
+  display: none;
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.tab-panel.active {
+  display: block;
+}
+
+.tab-panel h2 {
+  margin-top: 0;
+  font-size: 1.25rem;
+  border-bottom: 2px solid #ecf0f1;
+  padding-bottom: 0.5rem;
+}
+
+/* フッター */
+.app-footer {
+  text-align: center;
+  padding: 1rem;
+  color: #7f8c8d;
+  font-size: 0.875rem;
+}
+
+/* ============================================================
+   メトロノーム
+   ============================================================ */
+.metro-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.metro-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.metro-row label {
+  min-width: 3.5rem;
+  font-weight: bold;
+}
+
+.metro-play-row {
+  justify-content: center;
+}
+
+.metro-play {
+  padding: 0.9rem 2.5rem;
+  font-size: 1.1rem;
+  border: none;
+  border-radius: 999px;
+  background-color: #27ae60;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.metro-play:hover,
+.metro-play:focus {
+  background-color: #229954;
+  outline: 2px solid #2c3e50;
+  outline-offset: 2px;
+}
+
+.metro-play.playing {
+  background-color: #c0392b;
+}
+
+.metro-play:active {
+  transform: scale(0.96);
+}
+
+#metro-bpm-slider {
+  flex: 1 1 auto;
+  min-width: 120px;
+}
+
+#metro-bpm-number {
+  width: 4.5rem;
+  padding: 0.4rem;
+  font-size: 1rem;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+}
+
+#metro-signature {
+  padding: 0.45rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+#metro-tap {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #3498db;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#metro-tap:hover,
+#metro-tap:focus {
+  background-color: #2980b9;
+  outline: 2px solid #2c3e50;
+  outline-offset: 2px;
+}
+
+.metro-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 2rem;
+  margin-top: 0.5rem;
+}
+
+.beat-dot {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  background-color: #bdc3c7;
+  transition: background-color 0.08s ease, transform 0.08s ease;
+}
+
+.beat-dot.accent {
+  border: 2px solid #c0392b;
+}
+
+.beat-dot.active {
+  background-color: #e74c3c;
+  transform: scale(1.35);
+}
+
+/* ============================================================
+   練習記録
+   ============================================================ */
+.record-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.record-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.record-row label {
+  font-weight: bold;
+}
+
+.record-row input,
+.record-row select,
+.record-row textarea {
+  padding: 0.5rem 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+  font-family: inherit;
+}
+
+.record-row textarea {
+  resize: vertical;
+}
+
+.record-submit-row {
+  align-items: center;
+}
+
+#record-submit {
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #27ae60;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  align-self: flex-start;
+}
+
+#record-submit:hover,
+#record-submit:focus {
+  background-color: #229954;
+  outline: 2px solid #2c3e50;
+  outline-offset: 2px;
+}
+
+.record-history {
+  margin-top: 2rem;
+  border-top: 2px solid #ecf0f1;
+  padding-top: 1rem;
+}
+
+.record-history h3 {
+  margin-top: 0;
+  font-size: 1.05rem;
+}
+
+.record-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.record-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ecf0f1;
+  border-radius: 8px;
+  background-color: #f9fafb;
+}
+
+.record-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.record-item-meta {
+  font-size: 0.85rem;
+  color: #7f8c8d;
+}
+
+.record-item-song {
+  font-weight: bold;
+}
+
+.record-item-memo {
+  font-size: 0.85rem;
+  color: #555;
+  white-space: pre-wrap;
+}
+
+.record-delete {
+  flex-shrink: 0;
+  padding: 0.4rem 0.75rem;
+  border: none;
+  border-radius: 6px;
+  background-color: #c0392b;
+  color: #fff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.record-delete:hover,
+.record-delete:focus {
+  background-color: #a93226;
+  outline: 2px solid #2c3e50;
+  outline-offset: 2px;
+}
+
+.record-empty {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   練習タイマー
+   ============================================================ */
+.timer-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.timer-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.timer-mode-row {
+  justify-content: center;
+}
+
+.timer-mode-button {
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 999px;
+  background-color: #bdc3c7;
+  color: #2c3e50;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.timer-mode-button:hover,
+.timer-mode-button:focus {
+  background-color: #95a5a6;
+  outline: 2px solid #2c3e50;
+  outline-offset: 2px;
+}
+
+.timer-mode-button.active {
+  background-color: #2c3e50;
+  color: #fff;
+  font-weight: bold;
+}
+
+.timer-presets {
+  justify-content: center;
+}
+
+.timer-preset-button {
+  padding: 0.6rem 1.1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #3498db;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.timer-preset-button:hover,
+.timer-preset-button:focus {
+  background-color: #2980b9;
+  outline: 2px solid #2c3e50;
+  outline-offset: 2px;
+}
+
+.timer-preset-button.active {
+  background-color: #e67e22;
+}
+
+.timer-custom-row {
+  justify-content: center;
+}
+
+#timer-custom-minutes {
+  width: 5rem;
+  padding: 0.4rem;
+  font-size: 1rem;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+}
+
+#timer-custom-apply {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: #3498db;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+#timer-custom-apply:hover,
+#timer-custom-apply:focus {
+  background-color: #2980b9;
+  outline: 2px solid #2c3e50;
+  outline-offset: 2px;
+}
+
+.timer-display-row {
+  justify-content: center;
+}
+
+.timer-display {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.05em;
+}
+
+.timer-display.timer-warning {
+  color: #e67e22;
+}
+
+.timer-display.timer-finished {
+  color: #c0392b;
+  animation: timer-pulse 0.6s ease-in-out infinite;
+}
+
+@keyframes timer-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.timer-buttons-row {
+  justify-content: center;
+}
+
+.timer-start,
+.timer-pause,
+.timer-reset {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.timer-start {
+  background-color: #27ae60;
+}
+
+.timer-start:hover,
+.timer-start:focus {
+  background-color: #229954;
+  outline: 2px solid #2c3e50;
+  outline-offset: 2px;
+}
+
+.timer-pause {
+  background-color: #f39c12;
+}
+
+.timer-pause:hover,
+.timer-pause:focus {
+  background-color: #d68910;
+  outline: 2px solid #2c3e50;
+  outline-offset: 2px;
+}
+
+.timer-reset {
+  background-color: #7f8c8d;
+}
+
+.timer-reset:hover,
+.timer-reset:focus {
+  background-color: #6c7a7b;
+  outline: 2px solid #2c3e50;
+  outline-offset: 2px;
+}
+
+.timer-start:disabled,
+.timer-pause:disabled,
+.timer-reset:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.timer-start:active,
+.timer-pause:active,
+.timer-reset:active {
+  transform: scale(0.96);
+}
+
+/* スマホファースト：狭い画面でもタブが縦に積み重ならない調整 */
+@media (max-width: 480px) {
+  .tab-button {
+    font-size: 0.9rem;
+    padding: 0.6rem 0.5rem;
+  }
+
+  .app-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .metro-row label {
+    min-width: auto;
+  }
+
+  #metro-bpm-slider {
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   設定
+   ============================================================ */
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.settings-row > label,
+.settings-label {
+  min-width: 12rem;
+  font-weight: bold;
+}
+
+.settings-range-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1 1 auto;
+  min-width: 200px;
+}
+
+#settings-volume {
+  flex: 1 1 auto;
+  min-width: 120px;
+}
+
+.settings-range-value {
+  min-width: 3rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.settings-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.settings-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.settings-toggle-track {
+  position: relative;
+  width: 3rem;
+  height: 1.6rem;
+  background-color: #bdc3c7;
+  border-radius: 999px;
+  transition: background-color 0.2s ease;
+}
+
+.settings-toggle-thumb {
+  position: absolute;
+  top: 0.2rem;
+  left: 0.2rem;
+  width: 1.2rem;
+  height: 1.2rem;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+}
+
+.settings-toggle input:checked + .settings-toggle-track {
+  background-color: #2c3e50;
+}
+
+.settings-toggle input:checked + .settings-toggle-track .settings-toggle-thumb {
+  transform: translateX(1.4rem);
+}
+
+.settings-toggle input:focus + .settings-toggle-track {
+  outline: 2px solid #2c3e50;
+  outline-offset: 2px;
+}
+
+.settings-toggle-text {
+  min-width: 3.5rem;
+}
+
+#settings-default-bpm,
+#settings-default-timer {
+  width: 5rem;
+  padding: 0.4rem;
+  font-size: 1rem;
+  border: 1px solid #bdc3c7;
+  border-radius: 6px;
+}
+
+.settings-hint {
+  color: #7f8c8d;
+  font-size: 0.9rem;
+}
+
+/* スマホファースト：設定画面の調整 */
+@media (max-width: 480px) {
+  .settings-row > label,
+  .settings-label {
+    min-width: 100%;
+  }
+
+  .settings-range-group {
+    width: 100%;
+  }
+}
+
+/* タブレット・PC向け */
+@media (min-width: 768px) {
+  .tab-content {
+    margin-top: 2rem;
+  }
+
+  .tab-panel {
+    padding: 2rem;
+  }
+}
+
+/* ============================================================
+   ダークテーマ（step-3）
+   <body data-theme="dark"> を切り替えてページ全体に適用します。
+   アクセントカラー（緑・青・赤系）は視認性を保つため共通のままとし、
+   背景・文字色・枠線など「地の色」のみを落ち着いたダーク配色に変更します。
+   ============================================================ */
+body[data-theme="dark"] {
+  background-color: #1b1f24;
+  color: #e4e6eb;
+}
+
+[data-theme="dark"] .app-header {
+  background-color: #11151a;
+}
+
+[data-theme="dark"] .tab-nav {
+  background-color: #242931;
+}
+
+[data-theme="dark"] .tab-button {
+  background-color: #3a4049;
+  color: #e4e6eb;
+}
+
+[data-theme="dark"] .tab-button:hover,
+[data-theme="dark"] .tab-button:focus {
+  background-color: #4b525c;
+  outline-color: #e4e6eb;
+}
+
+[data-theme="dark"] .tab-button.active {
+  background-color: #5b7fa6;
+  color: #fff;
+}
+
+[data-theme="dark"] .tab-panel {
+  background-color: #242931;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .tab-panel h2 {
+  border-bottom-color: #3a4049;
+}
+
+[data-theme="dark"] .app-footer {
+  color: #8a909a;
+}
+
+[data-theme="dark"] #metro-bpm-number,
+[data-theme="dark"] #metro-signature,
+[data-theme="dark"] #timer-custom-minutes,
+[data-theme="dark"] #settings-default-bpm,
+[data-theme="dark"] #settings-default-timer,
+[data-theme="dark"] .record-row input,
+[data-theme="dark"] .record-row select,
+[data-theme="dark"] .record-row textarea {
+  background-color: #2f343c;
+  color: #e4e6eb;
+  border-color: #4b525c;
+}
+
+[data-theme="dark"] .beat-dot {
+  background-color: #4b525c;
+}
+
+[data-theme="dark"] .record-item {
+  background-color: #2f343c;
+  border-color: #3a4049;
+}
+
+[data-theme="dark"] .record-item-meta {
+  color: #a7adb6;
+}
+
+[data-theme="dark"] .record-item-memo {
+  color: #c3c8d1;
+}
+
+[data-theme="dark"] .record-empty {
+  color: #a7adb6;
+}
+
+[data-theme="dark"] .record-history {
+  border-top-color: #3a4049;
+}
+
+[data-theme="dark"] .timer-mode-button {
+  background-color: #3a4049;
+  color: #e4e6eb;
+}
+
+[data-theme="dark"] .timer-mode-button:hover,
+[data-theme="dark"] .timer-mode-button:focus {
+  background-color: #4b525c;
+  outline-color: #e4e6eb;
+}
+
+[data-theme="dark"] .timer-display {
+  color: #e4e6eb;
+}
+
+[data-theme="dark"] .settings-hint {
+  color: #a7adb6;
+}
+
+[data-theme="dark"] .settings-toggle-track {
+  background-color: #4b525c;
+}
+

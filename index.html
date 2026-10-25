@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>音楽練習サポート</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="app-header">
+    <h1>音楽練習サポート</h1>
+  </header>
+
+  <nav class="tab-nav" role="tablist" aria-label="練習機能">
+    <button class="tab-button active" role="tab" aria-selected="true" data-tab="metronome">
+      メトロノーム
+    </button>
+    <button class="tab-button" role="tab" aria-selected="false" data-tab="timer">
+      練習タイマー
+    </button>
+    <button class="tab-button" role="tab" aria-selected="false" data-tab="record">
+      練習記録
+    </button>
+    <button class="tab-button" role="tab" aria-selected="false" data-tab="settings">
+      設定
+    </button>
+  </nav>
+
+  <main class="tab-content">
+    <section id="metronome" class="tab-panel active" role="tabpanel" aria-label="メトロノーム">
+      <h2>メトロノーム</h2>
+
+      <div class="metro-controls">
+        <div class="metro-row metro-play-row">
+          <button id="metro-play" class="metro-play" type="button" aria-pressed="false">
+            再生
+          </button>
+        </div>
+
+        <div class="metro-row">
+          <label for="metro-bpm-slider">BPM</label>
+          <input id="metro-bpm-slider" type="range" min="40" max="208" value="120" aria-label="BPMスライダー">
+          <input id="metro-bpm-number" type="number" min="40" max="208" value="120" aria-label="BPM数値">
+        </div>
+
+        <div class="metro-row">
+          <label for="metro-signature">拍子</label>
+          <select id="metro-signature">
+            <option value="2">2/4</option>
+            <option value="3">3/4</option>
+            <option value="4" selected>4/4</option>
+          </select>
+        </div>
+
+        <div class="metro-row">
+          <button id="metro-tap" type="button">タップテンポ</button>
+        </div>
+
+        <div class="metro-row">
+          <div id="metro-indicator" class="metro-indicator" role="status" aria-live="polite" aria-label="拍子表示"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="timer" class="tab-panel" role="tabpanel" hidden>
+      <h2>練習タイマー</h2>
+
+      <div class="timer-controls">
+        <div class="timer-row timer-mode-row">
+          <button class="timer-mode-button active" type="button" data-mode="practice" aria-pressed="true">練習</button>
+          <button class="timer-mode-button" type="button" data-mode="rest" aria-pressed="false">休憩</button>
+        </div>
+
+        <div class="timer-row timer-presets" id="timer-presets-practice">
+          <button class="timer-preset-button" type="button" data-seconds="300">5分</button>
+          <button class="timer-preset-button" type="button" data-seconds="600">10分</button>
+          <button class="timer-preset-button" type="button" data-seconds="900">15分</button>
+          <button class="timer-preset-button" type="button" data-seconds="1800">30分</button>
+        </div>
+
+        <div class="timer-row timer-presets" id="timer-presets-rest" hidden>
+          <button class="timer-preset-button" type="button" data-seconds="60">1分</button>
+          <button class="timer-preset-button" type="button" data-seconds="180">3分</button>
+          <button class="timer-preset-button" type="button" data-seconds="300">5分</button>
+        </div>
+
+        <div class="timer-row timer-custom-row" id="timer-custom-row">
+          <label for="timer-custom-minutes">カスタム（分）</label>
+          <input id="timer-custom-minutes" type="number" min="1" max="180" placeholder="分" aria-label="カスタム分数">
+          <button id="timer-custom-apply" type="button">設定</button>
+        </div>
+
+        <div class="timer-row timer-display-row">
+          <div id="timer-display" class="timer-display" role="status" aria-live="polite">00:00</div>
+        </div>
+
+        <div class="timer-row timer-buttons-row">
+          <button id="timer-start" class="timer-start" type="button">開始</button>
+          <button id="timer-pause" class="timer-pause" type="button" disabled>一時停止</button>
+          <button id="timer-reset" class="timer-reset" type="button">リセット</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="record" class="tab-panel" role="tabpanel" hidden>
+      <h2>練習記録</h2>
+
+      <form id="record-form" class="record-form">
+        <div class="record-row">
+          <label for="record-date">日付</label>
+          <input id="record-date" type="date" required>
+        </div>
+
+        <div class="record-row">
+          <label for="record-instrument">楽器</label>
+          <select id="record-instrument">
+            <option value="ギター">ギター</option>
+            <option value="ピアノ">ピアノ</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+
+        <div class="record-row">
+          <label for="record-duration">練習時間（分）</label>
+          <input id="record-duration" type="number" min="1" step="1" required placeholder="例: 30">
+        </div>
+
+        <div class="record-row">
+          <label for="record-song">曲名</label>
+          <input id="record-song" type="text" placeholder="例: 月光">
+        </div>
+
+        <div class="record-row">
+          <label for="record-memo">メモ</label>
+          <textarea id="record-memo" rows="3" placeholder="練習内容や気づきなど"></textarea>
+        </div>
+
+        <div class="record-row record-submit-row">
+          <button id="record-submit" type="submit">記録する</button>
+        </div>
+      </form>
+
+      <div class="record-history">
+        <h3>練習履歴</h3>
+        <ul id="record-list" class="record-list"></ul>
+        <p id="record-empty" class="record-empty" hidden>まだ記録がありません。</p>
+      </div>
+    </section>
+
+    <section id="settings" class="tab-panel" role="tabpanel" hidden>
+      <h2>設定</h2>
+
+      <form id="settings-form" class="settings-form">
+        <div class="settings-row">
+          <label for="settings-volume">音量</label>
+          <div class="settings-range-group">
+            <input id="settings-volume" type="range" min="0" max="100" value="80" aria-describedby="settings-volume-value">
+            <output id="settings-volume-value" class="settings-range-value" for="settings-volume">80%</output>
+          </div>
+        </div>
+
+        <div class="settings-row">
+          <span class="settings-label" id="settings-theme-label">テーマ</span>
+          <label class="settings-toggle" for="settings-theme">
+            <input id="settings-theme" type="checkbox" role="switch" aria-labelledby="settings-theme-label" aria-checked="false">
+            <span class="settings-toggle-track">
+              <span class="settings-toggle-thumb"></span>
+            </span>
+            <span class="settings-toggle-text" id="settings-theme-text">ライト</span>
+          </label>
+        </div>
+
+        <div class="settings-row">
+          <label for="settings-default-bpm">メトロノームのデフォルトBPM</label>
+          <input id="settings-default-bpm" type="number" min="40" max="208" value="120" aria-describedby="settings-default-bpm-range">
+          <span id="settings-default-bpm-range" class="settings-hint">40〜208</span>
+        </div>
+
+        <div class="settings-row">
+          <label for="settings-default-timer">タイマーのデフォルト時間（分）</label>
+          <input id="settings-default-timer" type="number" min="1" max="120" value="15" aria-describedby="settings-default-timer-range">
+          <span id="settings-default-timer-range" class="settings-hint">1〜120分</span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <small>&copy; 2026 音楽練習サポート</small>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
